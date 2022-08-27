@@ -1,22 +1,24 @@
 import { BullModule, InjectQueue } from '@nestjs/bull';
-import {  Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 import { Queue } from 'bull';
 import { createBullBoard } from 'bull-board';
 import { AppController } from './controller/app.controller';
-import {BullAdapter} from 'bull-board/bullAdapter'
+import { BullAdapter } from 'bull-board/bullAdapter'
 import { MiddlewareBuilder } from '@nestjs/core';
 import EmailService from './services/email-service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config'
 import { MailModule } from './mail/mail.module';
+import RepositoriesEmail from './repositories/repositores-email';
+import Dbservice from './dbservice/db.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal:true
+      isGlobal: true
     }),
     HttpModule.register({
-      headers:{
+      headers: {
         "Authorization": `Bearer ` + process.env.token,
         "Content-Type": 'application/json'
       }
@@ -35,17 +37,19 @@ import { MailModule } from './mail/mail.module';
   ],
 
   controllers: [AppController],
-  providers: [ 
-    EmailService],
+  providers: [
+    EmailService,
+    RepositoriesEmail,
+    Dbservice],
 })
 export class AppModule {
   constructor(@InjectQueue('email') private emailqueue: Queue) { }
-  
-  configure(conssumer: MiddlewareBuilder){
-   const { router } = createBullBoard([
-    new BullAdapter(this.emailqueue)
-   ])
-   conssumer.apply(router).forRoutes('/admin/queue')
+
+  configure(conssumer: MiddlewareBuilder) {
+    const { router } = createBullBoard([
+      new BullAdapter(this.emailqueue)
+    ])
+    conssumer.apply(router).forRoutes('/admin/queue')
   }
 
 }
