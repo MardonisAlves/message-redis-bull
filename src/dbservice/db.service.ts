@@ -6,11 +6,13 @@ export default class Dbservice{
 
     async db(){
         try {
-        return  await oracle.getConnection({
-            user:process.env.USER,
-            password:process.env.PASSWORD,
-            connectionString: process.env.HOST
-        });
+        const paracons = {
+            user: process.env.ORACLE_USER.toString(),
+            password: process.env.ORACLE_PASSWORD.toString(),
+            connectionString: process.env.ORACLE_HOST.toString() 
+        }
+        const connection = await oracle.getConnection(paracons);
+         return connection
          
         } catch (error) {
          console.log(error);

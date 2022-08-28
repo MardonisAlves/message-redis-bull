@@ -4,18 +4,20 @@ import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
+import RepositoriesEmail from 'src/repositories/repositores-email';
+import Dbservice from 'src/dbservice/db.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal:true
+      isGlobal: true
     }),
     MailerModule.forRoot({
       // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
       // or
       transport: {
         host: 'smtp-relay.sendinblue.com',
-        port:587,
+        port: 587,
         auth: {
           user: process.env.USER_BLUE,
           pass: process.env.SEND_BLUE_TOKEN,
@@ -33,7 +35,10 @@ import { ConfigModule } from '@nestjs/config';
       },
     }),
   ],
-  providers: [MailService],
+  providers: [
+    MailService,
+    RepositoriesEmail,
+    Dbservice],
   exports: [MailService],
 })
-export class MailModule {}
+export class MailModule { }

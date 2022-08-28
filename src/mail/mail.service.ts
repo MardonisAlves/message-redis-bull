@@ -3,16 +3,22 @@ import { Process, Processor } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Job } from 'bull';
 import EmailDtos from 'src/dtos/email.dtos';
+import RepositoriesEmail from 'src/repositories/repositores-email';
 
 @Processor('email')
 @Injectable()
 export class MailService {
-  constructor(private mailerService: MailerService) { }
+  constructor(
+    private mailerService: MailerService,
+    private saveemailRespositories:RepositoriesEmail
+    ) { }
   @Process('enviar-email-job')
   async sendUserConfirmation(job: Job<EmailDtos>) {
     try {
       const url = `teste`;
       const { data } = job
+      console.log(data);
+      
      const send = await this.mailerService.sendMail({
       from: 'mardonis.bezerra@gmail.com',
       to: data.email,
@@ -24,6 +30,8 @@ export class MailService {
         },
       })
       /* salvar o email em uma tabela no banco */
+      const saveemail = await this.saveemailRespositories.salvarEmail(data);
+      console.log(saveemail);
       
       return send;
       

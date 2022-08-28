@@ -9,16 +9,11 @@ export default class RepositoriesEmail{
 async salvarEmail(data:EmailDtos){
     try {
     const con = await this.dbservice.db()
-    const bind = {
-      to:data.email,
-      assunto:data.assunto,
-      id_out:{
-      }
-
-    }
-    const sql = `INSET INTO TABELA(to, assunto)VALUES(:to, :assunto) returning into :id_out`
+    const bind = [data.assunto, data.email]
+    const sql = `insert into admin.sendemail VALUES(:1, :2)`;
     const sqlResult = await con.execute(sql, bind,{autoCommit:true});
-    return sqlResult.outBinds
+    console.log(sqlResult);
+    return sqlResult
     } catch (error) {
       console.log(error);   
     }

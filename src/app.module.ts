@@ -26,7 +26,7 @@ import Dbservice from './dbservice/db.service';
     ScheduleModule.forRoot(),
     BullModule.forRoot({
       redis: {
-        host: process.env.HOST,
+        host: process.env.HOST_REDIS,
         port: Number(process.env.PORT)
       }
     }),
@@ -37,10 +37,7 @@ import Dbservice from './dbservice/db.service';
   ],
 
   controllers: [AppController],
-  providers: [
-    EmailService,
-    RepositoriesEmail,
-    Dbservice],
+  providers: [EmailService],
 })
 export class AppModule {
   constructor(@InjectQueue('email') private emailqueue: Queue) { }
