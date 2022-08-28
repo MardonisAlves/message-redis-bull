@@ -13,8 +13,8 @@ export class AppController {
 
 
   @Post('/enviar/email')
-  //@Cron(CronExpression.EVERY_MINUTE)
-  async enviarEmail(@Body() email:EmailDtos): Promise<Job> {    
+  @Cron(CronExpression.EVERY_MINUTE)
+  async enviarEmail(@Body() email:EmailDtos): Promise<Job | EmailDtos> {    
     return await this.emailservice.enviarEmail(email);
   }
 }

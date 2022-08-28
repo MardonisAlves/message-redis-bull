@@ -6,8 +6,11 @@ import EmailDtos from "src/dtos/email.dtos";
 export default class EmailService{
     constructor(
         @InjectQueue('email') private emailqueue:Queue) {}
-    async enviarEmail(emailDto:EmailDtos):Promise<Job>{
+    async enviarEmail(emailDto:EmailDtos):Promise<Job | EmailDtos>{
         try {
+        if(!emailDto){
+            return emailDto
+        }
         const email = await this.emailqueue.add('enviar-email-job',emailDto,{
             removeOnFail:true,
             stackTraceLimit:2

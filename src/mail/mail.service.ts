@@ -30,10 +30,12 @@ export class MailService {
         },
       })
       /* salvar o email em uma tabela no banco */
-      const saveemail = await this.saveemailRespositories.salvarEmail(data);
-      console.log(saveemail);
-      
-      return send;
+      if(send){
+        const saveemail = await this.saveemailRespositories.salvarEmail(data);
+        console.log(send);
+        
+        return send;
+      }
       
     } catch (error) {
       console.log(error);

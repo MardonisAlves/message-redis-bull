@@ -10,9 +10,9 @@ async salvarEmail(data:EmailDtos){
     try {
     const con = await this.dbservice.db()
     const bind = [data.assunto, data.email]
-    const sql = `insert into admin.sendemail VALUES(:1, :2)`;
+    const sql = `insert into admin.sendemail(assunto, email) VALUES(:assunto, :email)`;
     const sqlResult = await con.execute(sql, bind,{autoCommit:true});
-    console.log(sqlResult);
+
     return sqlResult
     } catch (error) {
       console.log(error);   
