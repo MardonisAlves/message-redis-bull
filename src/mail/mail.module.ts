@@ -4,8 +4,8 @@ import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
-import RepositoriesEmail from 'src/repositories/repositores-email';
-import Dbservice from 'src/dbservice/db.service';
+import RepositoriesEmail from './../repositories/repositores-email';
+import Dbservice from './../dbservice/db.service';
 
 @Module({
   imports: [

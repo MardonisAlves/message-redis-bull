@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import Dbservice from "src/dbservice/db.service";
-import EmailDtos from "src/dtos/email.dtos";
+import Dbservice from "./../dbservice/db.service";
+import EmailDtos from "./..//dtos/email.dtos";
 
 @Injectable()
 export default class RepositoriesEmail{

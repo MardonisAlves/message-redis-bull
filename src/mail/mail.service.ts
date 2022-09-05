@@ -2,8 +2,8 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Process, Processor } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Job } from 'bull';
-import EmailDtos from 'src/dtos/email.dtos';
-import RepositoriesEmail from 'src/repositories/repositores-email';
+import EmailDtos from './../dtos/email.dtos';
+import RepositoriesEmail from './../repositories/repositores-email';
 
 @Processor('email')
 @Injectable()

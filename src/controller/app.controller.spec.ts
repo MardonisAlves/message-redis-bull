@@ -3,7 +3,7 @@ import EmailService from '../services/email-service';
 import { Job, Queue } from "bull";
 import EmailDtos from "src/dtos/email.dtos";
 
-describe('CatsController', () => {
+describe('AppController', () => {
     let appController: AppController;
     let emailService: EmailService;
     let emailQueue: Queue

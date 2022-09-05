@@ -1,7 +1,7 @@
 import { InjectQueue } from "@nestjs/bull";
 import { Injectable } from "@nestjs/common";
 import { Job, Queue } from "bull";
-import EmailDtos from "src/dtos/email.dtos";
+import EmailDtos from "./../dtos/email.dtos";
 @Injectable()
 export default class EmailService{
     constructor(
