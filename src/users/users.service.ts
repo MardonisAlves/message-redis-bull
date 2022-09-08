@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import Dbservice from 'src/dbservice/db.service';
 import UserDtos from 'src/dtos/user.dtos';
+import RepositoriesUesrs from 'src/repositories/repositories-users';
 import { authUsers } from './../iterfaces/auth-user.interface';
 @Injectable()
 export class UsersService {
-  constructor(private dbService:Dbservice){}
-    /* Fazer a consulta no banc de dados*/
+    constructor(private readonly repositoriesUsers:RepositoriesUesrs){}
     private readonly users = [
         {
           userId: 1,
@@ -20,17 +19,14 @@ export class UsersService {
       ];
     
       async findOne(username: string): Promise<authUsers | undefined> {
+        /* select user do banco */
         return this.users.find(user => user.username === username);
       }
 
       async createUser(user:UserDtos){
         try {
-          const con = await this.dbService.db()
-          const bind = [user.cnameuser, user.cemailuser, user.password]
-          const sql = `insert into admin.users(cnameuser, cemailuser, password) VALUES(:cnameuser, :cemailuser, :password)`;
-          const sqlResult = await con.execute(sql, bind,{autoCommit:true}); 
-          
-          
+        const createUser = await this.repositoriesUsers.createUser(user);
+        return createUser;
         } catch (error) {
           console.log(error);
         }

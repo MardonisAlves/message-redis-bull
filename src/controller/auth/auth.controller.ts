@@ -1,10 +1,11 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Post, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { AuthService } from "src/auth/auth.service";
 import { Public } from "src/decorators/decorators";
 import UserDtos from "src/dtos/user.dtos";
 import { authUsers } from "src/iterfaces/auth-user.interface";
 import { UsersService } from "src/users/users.service";
+import { Response } from "express";
 
 @ApiTags('AuthController')
 @Controller('api/v1')
@@ -25,10 +26,12 @@ export default class AuthController{
     }
 
     @Post('new/user')
-    async newUser(@Body() user:UserDtos){
+    async newUser(@Body() user:UserDtos, @Res() response:Response){
       try {
         const newsuer = await this.userService.createUser(user);
-        return newsuer;
+        console.log(newsuer);
+        
+        return response.json(newsuer);
       } catch (error) {
         console.log(error);
       }

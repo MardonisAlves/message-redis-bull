@@ -13,6 +13,7 @@ import { MailModule } from './mail/mail.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import AuthController from './controller/auth/auth.controller';
+import UtilsUsers from './utils/utils-users';
 
 @Module({
   imports: [
@@ -41,7 +42,7 @@ import AuthController from './controller/auth/auth.controller';
   ],
 
   controllers: [AppController, AuthController],
-  providers: [EmailService],
+  providers: [EmailService, UtilsUsers],
 })
 export class AppModule {
   constructor(@InjectQueue('email') private emailqueue: Queue) { }
