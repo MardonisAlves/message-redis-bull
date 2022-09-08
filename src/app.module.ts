@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config'
 import { MailModule } from './mail/mail.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import AuthController from './controller/auth/auth.controller';
 
 @Module({
   imports: [
@@ -39,7 +40,7 @@ import { UsersModule } from './users/users.module';
     UsersModule
   ],
 
-  controllers: [AppController],
+  controllers: [AppController, AuthController],
   providers: [EmailService],
 })
 export class AppModule {
