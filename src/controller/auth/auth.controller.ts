@@ -3,7 +3,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { AuthService } from "src/auth/auth.service";
 import { Public } from "src/decorators/decorators";
 import UserDtos from "src/dtos/user.dtos";
-import { authUsers } from "src/iterfaces/auth-user.interface";
+import { authUsers } from "src/interfaces/auth-user.interface";
 import { UsersService } from "src/users/users.service";
 import { Response } from "express";
 
@@ -25,6 +25,7 @@ export default class AuthController{
       }
     }
 
+    @Public()
     @Post('new/user')
     async newUser(@Body() user:UserDtos, @Res() response:Response){
       try {

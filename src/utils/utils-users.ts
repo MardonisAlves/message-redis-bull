@@ -15,9 +15,9 @@ export default class UtilsUsers{
         }
     }
 
-    async comparePassword(user:UserDtos, hash:string){
+    async comparePassword(password:string, hash:string){
         try {
-            const isMatch = await bcrypt.compare(user.password, hash); 
+            const isMatch = await bcrypt.compare(password, hash); 
             return isMatch;
         } catch (error) {
            console.log(error);    

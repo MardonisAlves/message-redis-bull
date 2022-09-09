@@ -5,7 +5,12 @@ import UtilsUsers from 'src/utils/utils-users';
 import { UsersService } from './users.service';
 
 @Module({
-  providers: [UsersService, Dbservice, RepositoriesUesrs, UtilsUsers],
-  exports:[UsersService]
+  providers: [
+    UsersService, 
+    Dbservice, 
+    RepositoriesUesrs,
+    UtilsUsers
+  ],
+  exports:[UsersService, UtilsUsers]
 })
 export class UsersModule {}

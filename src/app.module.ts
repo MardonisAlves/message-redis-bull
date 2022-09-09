@@ -38,11 +38,11 @@ import UtilsUsers from './utils/utils-users';
     }),
     MailModule,
     AuthModule,
-    UsersModule
+    UsersModule,
   ],
 
   controllers: [AppController, AuthController],
-  providers: [EmailService, UtilsUsers],
+  providers: [EmailService],
 })
 export class AppModule {
   constructor(@InjectQueue('email') private emailqueue: Queue) { }
