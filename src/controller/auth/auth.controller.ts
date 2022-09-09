@@ -25,13 +25,10 @@ export default class AuthController{
       }
     }
 
-    @Public()
     @Post('new/user')
     async newUser(@Body() user:UserDtos, @Res() response:Response){
       try {
         const newsuer = await this.userService.createUser(user);
-        console.log(newsuer);
-        
         return response.json(newsuer);
       } catch (error) {
         console.log(error);
