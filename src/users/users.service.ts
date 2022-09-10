@@ -4,12 +4,13 @@ import Dbservice from 'src/dbservice/db.service';
 import UserDtos from 'src/dtos/user.dtos';
 import { ResultAuth } from 'src/interfaces/result-auth';
 import RepositoriesUesrs from 'src/repositories/repositories-users';
+import EmailService from 'src/services/email-service';
 @Injectable()
 export class UsersService {
  
     constructor(
       private readonly repositoriesUsers:RepositoriesUesrs,
-      private readonly dbService:Dbservice
+      private readonly dbService:Dbservice,
       ){}
    
     
@@ -24,7 +25,7 @@ export class UsersService {
              new HttpException('user not found',HttpStatus.UNAUTHORIZED)
           }else{
               const dataAuth:ResultAuth = {
-              CNAMEUSER: sqlResult.rows[0].CEMAILUSER,
+              CNAMEUSER: sqlResult.rows[0].CNAMEUSER,
               CEMAILUSER: sqlResult.rows[0].CEMAILUSER,
               NUSER: sqlResult.rows[0].NUSER,
               PASSWORD: sqlResult.rows[0].PASSWORD
@@ -48,6 +49,18 @@ export class UsersService {
         return createUser;
         } catch (error) {
           console.log(error);
+        }
+      }
+
+      async recuperarSenha(email:string){
+        try {
+        const findEmail = await this.findOne(email);
+        console.log(findEmail);
+        /* enviar o email com token e com link para redefinição de senha */
+        return findEmail;
+        } catch (error) {
+         console.log(error);
+          
         }
       }
 }
