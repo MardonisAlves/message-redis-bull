@@ -23,7 +23,7 @@ export class UsersService {
           if(sqlResult.rows.length === 0){
              new HttpException('user not found',HttpStatus.UNAUTHORIZED)
           }else{
-            const dataAuth:ResultAuth = {
+              const dataAuth:ResultAuth = {
               CNAMEUSER: sqlResult.rows[0].CEMAILUSER,
               CEMAILUSER: sqlResult.rows[0].CEMAILUSER,
               NUSER: sqlResult.rows[0].NUSER,
@@ -38,6 +38,12 @@ export class UsersService {
 
       async createUser(user:UserDtos){
         try {
+        const userExiste = await this.findOne(user.cemailuser);
+        if(userExiste){
+          return ({
+            message:'Usuario ja esta cadastrado!'
+          })
+        }
         const createUser = await this.repositoriesUsers.createUser(user);
         return createUser;
         } catch (error) {
