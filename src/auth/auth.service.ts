@@ -31,7 +31,6 @@ export class AuthService {
         if(!userValidate){
              throw new HttpException('user not found',HttpStatus.UNAUTHORIZED)
         } 
-        
         const payload = {username: userValidate.CNAMEUSER , sub: userValidate.NUSER}
         return {
             access_token: this.jwtservice.sign(payload)

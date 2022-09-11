@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Res } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { AuthService } from "src/auth/auth.service";
 import { Public } from "src/decorators/decorators";
@@ -47,6 +47,15 @@ export default class AuthController{
          assunto:'Recuperar senha' 
       }
       await this.emailService.enviarEmail(sendemail)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    //@Public()
+    @Get('/nova/senha/:token')
+    async novaSenha(@Param('token') token:string){
+      try {
+        console.log(token);
       } catch (error) {
         console.log(error);
       }

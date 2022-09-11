@@ -4,7 +4,7 @@ import Dbservice from 'src/dbservice/db.service';
 import UserDtos from 'src/dtos/user.dtos';
 import { ResultAuth } from 'src/interfaces/result-auth';
 import RepositoriesUesrs from 'src/repositories/repositories-users';
-import EmailService from 'src/services/email-service';
+
 @Injectable()
 export class UsersService {
  
@@ -55,7 +55,6 @@ export class UsersService {
       async recuperarSenha(email:string){
         try {
         const findEmail = await this.findOne(email);
-        console.log(findEmail);
         /* enviar o email com token e com link para redefinição de senha */
         return findEmail;
         } catch (error) {

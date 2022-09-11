@@ -6,6 +6,12 @@ import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
 import RepositoriesEmail from './../repositories/repositores-email';
 import Dbservice from './../dbservice/db.service';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from 'src/auth/constants';
+import { AuthService } from 'src/auth/auth.service';
+import { UsersService } from 'src/users/users.service';
+import RepositoriesUesrs from 'src/repositories/repositories-users';
+import UtilsUsers from 'src/utils/utils-users';
 
 @Module({
   imports: [
@@ -34,11 +40,25 @@ import Dbservice from './../dbservice/db.service';
         },
       },
     }),
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: {expiresIn:'86400s'}
+     }),
   ],
   providers: [
+    RepositoriesUesrs,
+    UsersService,
+    AuthService,
     MailService,
     RepositoriesEmail,
+    UtilsUsers,
     Dbservice],
-  exports: [MailService],
+  exports: [
+    MailService, 
+    AuthService, 
+    UsersService,
+    RepositoriesUesrs,
+    UtilsUsers
+  ],
 })
 export class MailModule { }
