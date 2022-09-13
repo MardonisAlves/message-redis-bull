@@ -1,13 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query, Res } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, Req, Res } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { AuthService } from "src/auth/auth.service";
 import { Public } from "src/decorators/decorators";
 import UserDtos from "src/dtos/user.dtos";
 import { authUsers } from "src/interfaces/auth-user.interface";
 import { UsersService } from "src/users/users.service";
-import { Response } from "express";
 import EmailService from "src/services/email-service";
-
+import { Response , Request } from "express";
 @ApiTags('AuthController')
 @Controller('api/v1')
 export default class AuthController{
@@ -37,7 +36,6 @@ export default class AuthController{
       }
     }
 
-
     @Get('/recuperar/senha/:email')
     async recuperarSenha(@Param('email') email:string){
       try {
@@ -51,11 +49,11 @@ export default class AuthController{
         console.log(error);
       }
     }
-    //@Public()
-    @Get('/nova/senha/:token')
-    async novaSenha(@Param('token') token:string){
+
+    @Get('/nova/senha')
+    async novaSenha(@Query('token') token:string , @Req() req:Request){
       try {
-        console.log(token);
+        console.log(req.query);
       } catch (error) {
         console.log(error);
       }

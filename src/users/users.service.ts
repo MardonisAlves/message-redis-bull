@@ -37,16 +37,17 @@ export class UsersService {
         }
       }
 
-      async createUser(user:UserDtos){
+      async createUser(user:UserDtos):Promise<string | unknown>{
         try {
         const userExiste = await this.findOne(user.cemailuser);
         if(userExiste){
           return ({
             message:'Usuario ja esta cadastrado!'
           })
+        }else{
+          const createUser = await this.repositoriesUsers.createUser(user);
+          return createUser;
         }
-        const createUser = await this.repositoriesUsers.createUser(user);
-        return createUser;
         } catch (error) {
           console.log(error);
         }
