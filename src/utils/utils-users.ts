@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import SalvarSenha from 'src/dtos/salvar-senha.dtos';
 import UserDtos from 'src/dtos/user.dtos';
-
+import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export default class UtilsUsers{
     
@@ -21,6 +22,19 @@ export default class UtilsUsers{
             return isMatch;
         } catch (error) {
            console.log(error);    
+        }
+    }
+
+    async updatePassword(salavarsenha:SalvarSenha){
+        try {
+            console.log(salavarsenha.password);
+            
+            const salt = await bcrypt.genSalt(100 , 'a');
+            const hash = await bcrypt.hash(salavarsenha.password, salt);
+            return hash;
+        } catch (error) {
+           console.log(error);
+            
         }
     }
 }

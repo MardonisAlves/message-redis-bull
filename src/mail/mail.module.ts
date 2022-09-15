@@ -13,14 +13,14 @@ import { UsersService } from 'src/users/users.service';
 import RepositoriesUesrs from 'src/repositories/repositories-users';
 import UtilsUsers from 'src/utils/utils-users';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true
     }),
     MailerModule.forRoot({
-      // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
-      // or
+
       transport: {
         host: 'smtp-relay.sendinblue.com',
         port: 587,

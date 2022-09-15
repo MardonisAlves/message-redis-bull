@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as OracleDB from 'oracledb';
 import Dbservice from 'src/dbservice/db.service';
+import SalvarSenha from 'src/dtos/salvar-senha.dtos';
 import UserDtos from 'src/dtos/user.dtos';
 import { ResultAuth } from 'src/interfaces/result-auth';
 import RepositoriesUesrs from 'src/repositories/repositories-users';
@@ -56,11 +57,18 @@ export class UsersService {
       async recuperarSenha(email:string){
         try {
         const findEmail = await this.findOne(email);
-        /* enviar o email com token e com link para redefinição de senha */
         return findEmail;
         } catch (error) {
          console.log(error);
-          
+        }
+      }
+
+      async updateSenha(email:string, salvarSenha:SalvarSenha){
+        try {
+          const updatesenha = await this.repositoriesUsers.updateSenha(email, salvarSenha);
+          return updatesenha;
+        } catch (error) {
+          console.log(error);
         }
       }
 }
