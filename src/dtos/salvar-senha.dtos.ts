@@ -8,5 +8,5 @@ export default class SalvarSenha{
 
     @IsString()
     @IsNotEmpty()
-    repetir:string;
+    password_again:string;
 }

@@ -6,7 +6,7 @@ import UserDtos from "src/dtos/user.dtos";
 import { authUsers } from "src/interfaces/auth-user.interface";
 import { UsersService } from "src/users/users.service";
 import EmailService from "src/services/email-service";
-import { Response , Request } from "express";
+import { Response  } from "express";
 import SalvarSenha from "src/dtos/salvar-senha.dtos";
 @ApiTags('AuthController')
 @Controller('api/v1')
@@ -69,17 +69,13 @@ export default class AuthController{
 
     @Post('nova/salvar')
     async salvarSenha(
-      @Query() token:string,
+      @Query() token:string | any,
       @Body() salvarSenha:SalvarSenha,
       @Res() res:Response){ 
       try {
-        if(salvarSenha.password !== salvarSenha.repetir){
-          /* fazer o redirect para a rota */
-          return {msgpassword : 'Password deve ser igual'}
-        }
         const {email}:any = token;
         const updatesenha = await this.userService.updateSenha(email , salvarSenha);
-        return updatesenha;
+        return res.json(updatesenha);
       } catch (error) {
         console.log(error);
       }

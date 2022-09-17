@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <title>App</title>
@@ -20,8 +22,8 @@
 
     <div class="col-md-12 d-flex justify-content-center">
       <form action="salvar?token={{token.token}}&email={{token.email}}" method="post">
-          <p>{{message}}</p>
-        <div class="input-group mb-3 mt-2">
+        <p>{{message}}</p>
+        <div class="input-group mb-3 mt-2 col-md-4">
           <span class="input-group-text" id="basic-addon1">
             <svg id="i-unlock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none"
               stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -31,6 +33,7 @@
           </span>
           <input type="password" 
           class="form-control" 
+          id="password"
           placeholder="Nova Senha" 
           name="password" 
           required="Obrigatorio"
@@ -47,22 +50,22 @@
           <input type="password" 
           class="form-control" 
           placeholder="Nova Senha" 
-          name="repetir" 
+          name="password_again" 
+          id="password_again"
           required="Obrigatorio"
+          class="left"
           minlength="8">
         </div>
 
         <div class="input-group mb-3">
-          <input type="submit" class="form-control btn btn-primary">
+          <input type="submit" 
+          class="form-control btn btn-primary" 
+          id="salvar">
           <input type="reset" class="form-control btn btn-danger">
         </div>
       </form>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-    crossorigin="anonymous"></script>
 </body>
-
 </html>

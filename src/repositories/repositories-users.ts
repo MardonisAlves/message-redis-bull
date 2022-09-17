@@ -34,20 +34,14 @@ export default class RepositoriesUesrs {
             /* encrypt senha */
             const con = await this.dbService.db();
             const password = await this.utilsUser.updatePassword(salvarSenha);
-            const bind = {
-                email: email,
-                password: password
-            }
+
+            const bind = [email, password];
             const sqlupdate = `update admin.users set password= :password where cemailuser= :email`;
             const sqlupdatResult = await con.execute(sqlupdate, bind, { autoCommit: true });
-
-            if(sqlupdatResult.rows){
                 return {
                     status:true,
                     message:'Senha atualizada com sucesso!'
                 }
-            }
-
         } catch (error) {
             console.log(error);
         }
